@@ -144,18 +144,23 @@ document.getElementById('copyBtn').addEventListener('click', copyTeams);
 
 // Fonction pour afficher les équipes
 function displayTeams(teamsArray) {
-    let teamsResultHTML = '<div class="grid grid-cols-3 gap-y-1 gap-x-2  text-xl">'; // Ajout des classes ici
+    let teamsResultHTML = '<div class="flex flex-wrap gap-x-4 place-items-center">';
 
     teamsArray.forEach(team => {
         const teamParts = team.split(': ');
         const teamNumberParts = teamParts[0].split(' ');
         const teamWord = 'T';
-        const teamNumber = teamNumberParts[1]; // Supposant que le format est toujours "Équipe X"
+        const teamNumber = teamNumberParts[1];
         const members = teamParts[1].split(' x ');
 
-        const formattedTeam = `<div>
-            <span>${teamWord} <span class="font-bold text-2xl">${teamNumber}</span></span>: 
-            ${members.map(member => `<span class="font-bold text-2xl">${member}</span>`).join(' x ')}
+        const formattedTeam = `<div class="border px-2 rounded-lg text-center" style="
+            min-width: 200px; 
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+        ">
+            ${teamWord} <span class="font-bold text-xl">${teamNumber}</span>: <br>
+            ${members.map(member => `<span class="font-bold text-xl">${member}</span>`).join(' x ')}
         </div>`;
 
         teamsResultHTML += formattedTeam;
@@ -165,6 +170,7 @@ function displayTeams(teamsArray) {
 
     document.getElementById('teamResult').innerHTML = teamsResultHTML;
 }
+
 
 // Fonction pour générer des équipes aléatoires
 function generateTeams() {
