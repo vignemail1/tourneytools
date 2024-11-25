@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Tirage Aléatoire et Décompte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Lien vers votre fichier CSS -->
+</head>
+<body class="dark-mode h-screen m-0 flex flex-col">
+    <div class="flex h-full"> <!-- Flex pour prendre toute la hauteur -->
+        <div class="w-[300px] pr-4 h-full flex flex-col"> <!-- Largeur fixe de 300px -->
+            <!-- Conteneur pour les boutons alignés sur la même ligne -->
+            <div class="flex space-x-2 mb-4"> <!-- Espace entre les boutons -->
+                <button id="toggleTheme" class="bg-gray-500 text-white px-2 py-1 rounded w-full">Mode Sombre</button>
+                <button id="clearBtn" class="bg-red-500 text-white px-2 py-1 rounded w-full">Effacer Tout</button>
+            </div>
+
+            <div id="timer" class="text-4xl font-bold mb-4">00:00:00</div>
+            <div class="space-x-1 mb-2">
+                <button id="startBtn" class="bg-green-500 text-white px-2 py-1 rounded">Start</button>
+                <button id="pauseBtn" class="bg-orange-500 text-white px-2 py-1 rounded">Pause</button>
+                <button id="resetBtn" class="bg-red-500 text-white px-2 py-1 rounded">Reset Timer</button>
+            </div>
+            <div class="space-x-1 mb-2">
+                <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="addTime(-60)">-60 sec</button>
+                <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="addTime(30)">+30 sec</button>
+                <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="addTime(60)">+60 sec</button>
+                <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="addTime(300)">+5 min</button>
+            </div>
+
+            <!-- Zone de Texte Libre avec deux textarea -->
+            <div class="flex flex-col h-full">
+                <textarea id="freeText1" class="flex-grow p-2 border rounded mb-2 h-full" placeholder="Zone texte libre (exemple infos fixes tournoi: total, entry, tabbed, ...)"></textarea>
+                <textarea id="freeText2" class="flex-grow p-2 border rounded h-full" placeholder="Zone texte libre (exemple infos spin en cours: progression, tabbed, nuke, ...)"></textarea>
+            </div>
+        </div>
+
+        <!-- Conteneur pour la liste des noms et la liste des équipes -->
+        <div class="flex-grow pl-4 h-full flex flex-col overflow-y-auto">
+            <!-- Regroupement du label et de l'input pour la taille des équipes avec les boutons -->
+            <div class="mb-4 flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <label for="teamSize">Taille des équipes:</label>
+                    <input type="number" id="teamSize" min="2" max="10" value="2" class="border rounded px-2 py-1">
+                </div>
+
+                <button id="generateBtn" class="bg-green-500 text-white px-2 py-1 rounded">Générer les Équipes</button>
+                <button id="clearTeamsBtn" class="bg-red-500 text-white px-2 py-1 rounded">Effacer Équipes</button>
+                <button id="copyBtn" class="bg-blue-500 text-white px-2 py-1 rounded">Copier les Équipes</button>
+            </div>
+
+            <div class="flex space-x-4 mb-4 h-full">
+                <div class="h-full overflow-y-auto">
+                    <div id="nameCount" class="mb-2">Nombre de noms : 0</div>
+                    <textarea id="nameList" class="w-full h-full p-2 border rounded mb-4" placeholder="Entrez les noms, un par ligne"></textarea>
+                </div>
+
+                <div id="teamResult" class="flex flex-wrap w-full overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lien vers votre fichier JavaScript -->
+    <script src = "index.js"></script> 
+</body>
+</html>

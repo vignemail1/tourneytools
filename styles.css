@@ -1,0 +1,44 @@
+body {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour un changement doux */
+}
+
+.dark-mode {
+    background-color: #1f1f1f; /* Fond gris sombre */
+    color: #e0e0e0; /* Couleur de texte claire */
+}
+
+.light-mode {
+    background-color: #f5f5f5; /* Fond gris clair */
+    color: #333333; /* Couleur de texte foncée */
+}
+
+textarea {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour un changement doux */
+}
+
+/* Styles pour le mode sombre */
+.dark-mode textarea {
+    background-color: #3c3c3c; /* Fond gris sombre pour textarea */
+    color: #e0e0e0; /* Couleur de texte claire pour textarea */
+    border: 1px solid #555; /* Bordure adaptée au mode sombre */
+}
+
+/* Styles pour le mode clair */
+.light-mode textarea {
+    background-color: #ffffff; /* Fond blanc pour textarea */
+    color: #333333; /* Couleur de texte foncée pour textarea */
+    border: 1px solid #ccc; /* Bordure adaptée au mode clair */
+}
+
+/* Styles pour l'input de taille des équipes */
+.dark-mode input[type='number'] {
+    background-color: #3c3c3c; /* Fond gris sombre pour input en mode sombre */
+    color: #e0e0e0; /* Couleur de texte claire pour input en mode sombre */
+    border: 1px solid #555; /* Bordure adaptée au mode sombre */
+}
+
+.light-mode input[type='number'] {
+    background-color: #ffffff; /* Fond blanc pour input en mode clair */
+    color: #333333; /* Couleur de texte foncée pour input en mode clair */
+    border: 1px solid #ccc; /* Bordure adaptée au mode clair */
+}
