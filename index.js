@@ -36,13 +36,13 @@ function startTimer() {
     isRunning = true;
 
     const timerDisplay = document.getElementById('timer');
-    let currentTime = timerDisplay.innerText.split(':').map(Number);
-    let totalSeconds = currentTime[0] * 3600 + currentTime[1] * 60 + currentTime[2];
-
-    // Stocke initialement le temps dans localStorage
-    localStorage.setItem('remainingTime', totalSeconds);
-
     timerInterval = setInterval(() => {
+        let currentTime = timerDisplay.innerText.split(':').map(Number);
+        let totalSeconds = currentTime[0] * 3600 + currentTime[1] * 60 + currentTime[2];
+
+        // Stocke initialement le temps dans localStorage
+        localStorage.setItem('remainingTime', totalSeconds);
+
         totalSeconds--;
         if (totalSeconds < 0) {
             clearInterval(timerInterval);
@@ -74,7 +74,7 @@ function resetTimer() {
     isRunning = false;
     const timerDisplay = document.getElementById('timer');
     timerDisplay.innerText = '00:00:00';
-    
+
     // Réinitialise aussi le temps restant dans localStorage
     localStorage.removeItem('remainingTime');
 }
@@ -95,48 +95,48 @@ function addTime(seconds) {
 
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
-   const secs = totalSeconds % 60;
+    const secs = totalSeconds % 60;
 
-   timerDisplay.innerText = `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
+    timerDisplay.innerText = `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
 
-   // Met à jour également le temps restant dans localStorage
-   localStorage.setItem('remainingTime', totalSeconds);
+    // Met à jour également le temps restant dans localStorage
+    localStorage.setItem('remainingTime', totalSeconds);
 }
 
 // Fonction pour définir le timer
 function setTimer(seconds) {
-   const timerDisplay = document.getElementById('timer');
-   const hours = Math.floor(seconds / 3600);
-   const minutes = Math.floor((seconds % 3600) / 60);
-   const secs = seconds % 60;
+    const timerDisplay = document.getElementById('timer');
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
 
-   timerDisplay.innerText = `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
+    timerDisplay.innerText = `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
 
-   // Stocke également ce nouveau temps dans localStorage
-   localStorage.setItem('remainingTime', seconds);
+    // Stocke également ce nouveau temps dans localStorage
+    localStorage.setItem('remainingTime', seconds);
 }
 
 // Fonction pour formater les nombres à deux chiffres
 function pad(num) {
-   return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, '0');
 }
 
 // Fonction pour copier les équipes dans le presse-papiers sous forme de liste simple
 function copyTeams() {
-   // Récupérer la liste des équipes depuis localStorage
-   const teamsTextArray = JSON.parse(localStorage.getItem('teams')) || [];
-    
-   // Formater la liste pour ne prendre que les noms des membres, séparés par " x "
-   const formattedTeamsText = teamsTextArray.map(team => {
-       const members = team.split(': ')[1]; // Récupérer uniquement les membres après "Équipe x: "
-       return members; // Retourne seulement les membres, sans préfixe.
-   }).join('\n'); // Chaque équipe sur une nouvelle ligne
+    // Récupérer la liste des équipes depuis localStorage
+    const teamsTextArray = JSON.parse(localStorage.getItem('teams')) || [];
 
-   navigator.clipboard.writeText(formattedTeamsText).then(() => {
-       alert("Équipes copiées dans le presse-papiers !");
-   }).catch(err => {
-       console.error("Erreur lors de la copie : ", err);
-   });
+    // Formater la liste pour ne prendre que les noms des membres, séparés par " x "
+    const formattedTeamsText = teamsTextArray.map(team => {
+        const members = team.split(': ')[1]; // Récupérer uniquement les membres après "Équipe x: "
+        return members; // Retourne seulement les membres, sans préfixe.
+    }).join('\n'); // Chaque équipe sur une nouvelle ligne
+
+    navigator.clipboard.writeText(formattedTeamsText).then(() => {
+        alert("Équipes copiées dans le presse-papiers !");
+    }).catch(err => {
+        console.error("Erreur lors de la copie : ", err);
+    });
 }
 
 // Écouteur d'événements pour le bouton "Copier les Équipes"
@@ -188,7 +188,7 @@ function generateTeams() {
 
     // Créer les équipes en fonction de la taille spécifiée
     const teamSize = parseInt(teamSizeInput.value, 10);
-    
+
     let teamsArray = []; // Tableau pour stocker les équipes
 
     for (let i = 0; i < namesArray.length; i += teamSize) {
@@ -206,51 +206,51 @@ function generateTeams() {
 document.getElementById('generateBtn').addEventListener('click', generateTeams);
 
 // Récupérer et afficher les contenus des textarea depuis localStorage au chargement de la page
-window.onload = function() {
-   const freeText1Content = localStorage.getItem('freeText1') || '';
-   const freeText2Content = localStorage.getItem('freeText2') || '';
-   
-   document.getElementById('freeText1').value = freeText1Content;
-   document.getElementById('freeText2').value = freeText2Content;
+window.onload = function () {
+    const freeText1Content = localStorage.getItem('freeText1') || '';
+    const freeText2Content = localStorage.getItem('freeText2') || '';
 
-   // Récupérer et afficher le temps restant depuis localStorage, s'il existe.
-   const remainingTimeInSec = parseInt(localStorage.getItem('remainingTime'), 10);
-   
-   if (!isNaN(remainingTimeInSec)) {
-       setTimer(remainingTimeInSec); // Affichez ce temps sur l'interface utilisateur.
-       document.getElementById("timer").innerText= `${pad(Math.floor(remainingTimeInSec / 3600))}:${pad(Math.floor((remainingTimeInSec % 3600) / 60))}:${pad(remainingTimeInSec % 60)}`;
-       
-       if (!isRunning) { 
-           startTimer(); 
-       }
-   }
+    document.getElementById('freeText1').value = freeText1Content;
+    document.getElementById('freeText2').value = freeText2Content;
 
-   // Récupérer et afficher la liste des noms depuis localStorage, s'il existe.
-   const namesFromLocalStorage = localStorage.getItem("names") || '';
-   
-   document.getElementById("nameList").value= namesFromLocalStorage;
+    // Récupérer et afficher le temps restant depuis localStorage, s'il existe.
+    const remainingTimeInSec = parseInt(localStorage.getItem('remainingTime'), 10);
 
-   // Récupérer et afficher la liste des équipes depuis localStorage, s'il existe.
-   const teamsFromLocalStorage = JSON.parse(localStorage.getItem("teams")) || [];
-   
-   if (teamsFromLocalStorage.length > 0) {
-       displayTeams(teamsFromLocalStorage);
-   }
-   updateNameCount();
+    if (!isNaN(remainingTimeInSec)) {
+        setTimer(remainingTimeInSec); // Affichez ce temps sur l'interface utilisateur.
+        document.getElementById("timer").innerText = `${pad(Math.floor(remainingTimeInSec / 3600))}:${pad(Math.floor((remainingTimeInSec % 3600) / 60))}:${pad(remainingTimeInSec % 60)}`;
+
+        if (!isRunning) {
+            startTimer();
+        }
+    }
+
+    // Récupérer et afficher la liste des noms depuis localStorage, s'il existe.
+    const namesFromLocalStorage = localStorage.getItem("names") || '';
+
+    document.getElementById("nameList").value = namesFromLocalStorage;
+
+    // Récupérer et afficher la liste des équipes depuis localStorage, s'il existe.
+    const teamsFromLocalStorage = JSON.parse(localStorage.getItem("teams")) || [];
+
+    if (teamsFromLocalStorage.length > 0) {
+        displayTeams(teamsFromLocalStorage);
+    }
+    updateNameCount();
 };
 
 // Sauvegarder les contenus des textarea et de la liste des noms dans localStorage à chaque modification.
-document.getElementById('freeText1').addEventListener('input', function() {
-   localStorage.setItem('freeText1', this.value);
+document.getElementById('freeText1').addEventListener('input', function () {
+    localStorage.setItem('freeText1', this.value);
 });
 
-document.getElementById('freeText2').addEventListener('input', function() {
-   localStorage.setItem('freeText2', this.value);
+document.getElementById('freeText2').addEventListener('input', function () {
+    localStorage.setItem('freeText2', this.value);
 });
 
 // Sauvegarder la liste des noms dans localStorage à chaque modification.
-document.getElementById("nameList").addEventListener("input", function() {
-     localStorage.setItem("names", this.value); 
+document.getElementById("nameList").addEventListener("input", function () {
+    localStorage.setItem("names", this.value);
 });
 
 // Fonction pour effacer uniquement les équipes générées.
@@ -262,7 +262,7 @@ function clearTeams() {
 
         // Réinitialise l'affichage des équipes
         document.getElementById('teamResult').innerHTML = ''; // Vide le conteneur d'affichage des équipes
-        
+
         alert("Les équipes ont été effacées !");
     }
 }
@@ -270,14 +270,54 @@ function clearTeams() {
 // Écouteur d'événements pour le bouton "Effacer les Équipes"
 document.getElementById("clearTeamsBtn").addEventListener("click", clearTeams);
 
+// Fonction pour calculer le free buy
+function calculateFreeBuy(numberOfTeams, teamSize) {
+    // Trouver la puissance de teamSize immédiatement inférieure à numberOfTeams
+    const powerDown = Math.pow(teamSize, Math.floor(Math.log(numberOfTeams) / Math.log(teamSize)));
+    
+    // Trouver la puissance de teamSize immédiatement supérieure à numberOfTeams
+    const powerUp = Math.pow(teamSize, Math.ceil(Math.log(numberOfTeams) / Math.log(teamSize)));
+    
+    // Calculer le free buy comme le minimum entre les deux différences
+    return Math.min(powerUp - numberOfTeams, numberOfTeams - powerDown);
+}
+
+// Fonction pour mettre à jour le nombre de noms et le free buy
 function updateNameCount() {
     const nameListTextarea = document.getElementById('nameList');
+    const teamSizeInput = document.getElementById('teamSize');
     
-    // Compte les lignes non vides dans la zone de texte et met à jour l'affichage
+    // Compte les lignes non vides dans la zone de texte
     const namesArray = nameListTextarea.value.split('\n').filter(name => name.trim() !== '');
+    const numberOfNames = namesArray.length;
     
-    document.getElementById('nameCount').innerText = `Nombre de noms : ${namesArray.length}`;
- }
- 
- // Écouteur d'événements pour mettre à jour le nombre de noms dans la liste des noms individuels
- document.getElementById('nameList').addEventListener('input', updateNameCount);
+    // Calcul du nombre d'équipes et du free buy
+    const teamSize = parseInt(teamSizeInput.value, 10);
+    const numberOfTeams = Math.ceil(numberOfNames / teamSize);
+    const freeBuy = calculateFreeBuy(numberOfTeams, teamSize);
+    
+    // Mise à jour de l'affichage
+    document.getElementById('nameCount').innerText = `Nombre de noms : ${numberOfNames}`;
+    document.getElementById('freeBuyCount').innerText = `Free Buy : ${freeBuy}`;
+}
+
+// Écouteurs d'événements pour mettre à jour le nombre de noms et le free buy
+document.getElementById('nameList').addEventListener('input', updateNameCount);
+document.getElementById('teamSize').addEventListener('input', updateNameCount);
+
+// Appel initial pour mettre à jour les valeurs au chargement de la page
+window.addEventListener('load', updateNameCount);
+
+function clearAllData() {
+    if (confirm("Êtes-vous sûr de vouloir tout effacer ?")) {
+        localStorage.clear();
+        document.getElementById('freeText1').value = '';
+        document.getElementById('freeText2').value = '';
+        document.getElementById('nameList').value = '';
+        document.getElementById('teamResult').innerHTML = '';
+        document.getElementById('nameCount').innerText = 'Nombre de noms : 0';
+        document.getElementById('freeBuyCount').innerText = 'Free Buy : 0';
+        alert("Toutes les données ont été effacées !");
+    }
+}
+document.getElementById('clearBtn').addEventListener('click', clearAllData);

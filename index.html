@@ -28,6 +28,12 @@
                 <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="addTime(60)">+60 sec</button>
                 <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="addTime(300)">+5 min</button>
             </div>
+            <div class="space-x-1 mb-2">
+                <button class="bg-green-700 text-white px-2 py-1 rounded" onclick="setTimer(30)">30 sec</button>
+                <button class="bg-green-700 text-white px-2 py-1 rounded" onclick="setTimer(60)">60 sec</button>
+                <button class="bg-green-700 text-white px-2 py-1 rounded" onclick="setTimer(120)">2 min</button>
+                <button class="bg-green-700 text-white px-2 py-1 rounded" onclick="setTimer(300)">5 min</button>
+            </div>
 
             <!-- Zone de Texte Libre avec deux textarea -->
             <div class="flex flex-col h-full">
@@ -48,12 +54,14 @@
                 <button id="generateBtn" class="bg-green-500 text-white px-2 py-1 rounded">Générer les Équipes</button>
                 <button id="clearTeamsBtn" class="bg-red-500 text-white px-2 py-1 rounded">Effacer Équipes</button>
                 <button id="copyBtn"      class="bg-blue-500 text-white px-2 py-1 rounded">Copier les Équipes</button>
+                <button onclick="window.open('https://challonge.com/', '_blank')" class="bg-orange-500 text-white px-2 py-1 rounded">Ouvrir Challonge</button>
             </div>
 
             <div class="flex space-x-4 mb-4 h-full">
                 <div class="h-full w-48 overflow-y-auto shrink-0 resize-x">
                     <div id="nameCount" class="mb-2">Nombre de noms : 0</div>
-                    <textarea id="nameList" class="w-full h-full p-2 border rounded mb-4" placeholder="Entrez les noms, un par ligne"></textarea>
+    <div id="freeBuyCount" class="mb-2">Free Buy : 0</div>
+    <textarea id="nameList" class="w-full h-full p-2 border rounded mb-4" placeholder="Entrez les noms, un par ligne"></textarea>
                 </div>
 
                 <div id="teamResult" class="flex flex-wrap gap-x-4 gap-y-1 w-full overflow-y-auto"></div>
